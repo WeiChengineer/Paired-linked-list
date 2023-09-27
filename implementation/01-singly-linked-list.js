@@ -13,52 +13,72 @@ class SinglyLinkedList {
     }
 
     addToHead(val) {
-        // Add node of val to head of linked list
+        const newNode = new SinglyLinkedNode(val)
 
-        // Your code here
-
-        // Write your hypothesis on the time complexity of this method here
+        newNode.next = this.head
+        this.head = newNode
+        this.length++;
+        return this;
     }
 
     addToTail(val) {
         // There are bugs in this method! Fix them!!!
 
         // Add node of val to tail of linked list
-        let newNode = new SinglyLinkedNode(data);
+        let newNode = new SinglyLinkedNode(val);
 
-        if (!head) {
-            head = newNode;
-            return head;
+        if (!this.head) {
+            this.head = newNode;
+        } else {
+            let curr = this.head;
+            while (curr.next) {
+                curr = curr.next;
+            }
+            curr.next = newNode;
         }
-
-        let curr = head;
-        while (curr) {
-            curr = current.next;
-        }
-        curr.next = newNode;
-
-        return head;
-
+        this.length++;
+        return this;
         // Write your hypothesis on the time complexity of this method here
     }
 
     removeFromHead() {
-        // Remove node at head
-
-        // Your code here
-
-        // Write your hypothesis on the time complexity of this method here
+        if (this.length === 0) {
+            return undefined
+        } else {
+            let currNode = this.head
+            this.head = this.head.next
+            this.length--;
+            return currNode;
+        }
     }
 
-    removeFromTail() {
-        // Remove node at tail
-
-        // Your code here
-
-        // Write your hypothesis on the time complexity of this method here
+    removeFromTail(val) {
+        if (this.length === 0) {
+            return undefined
+        }
+        if (this.head.next === null) {
+            const removeVal = this.head.val
+            this.head = null;
+            this.length--;
+            return removeVal;
+        }
+        let prevNode = this.head;
+        let currNode = this.head.next;
+        while (currNode.next !== null) {
+            prevNode = currNode;
+            currNode = currNode.next;
+        }
+        const removeVal = currNode
+        prevNode.next = null
+        this.length--
+        return removeVal
     }
 
     peekAtHead() {
+        if (this.length === 0) {
+            return undefined;
+        }
+        if (this.head) return this.head.value;
         // Return the value of head node
 
         // Your code here
@@ -67,6 +87,11 @@ class SinglyLinkedList {
     }
 
     print() {
+        let curr = this.head
+        while (curr) {
+            console.log(curr.value);
+            curr = curr.next
+        }
         // Print out the linked list
 
         // Your code here
